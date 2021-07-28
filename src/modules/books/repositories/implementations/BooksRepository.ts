@@ -31,14 +31,16 @@ export default class BooksRepository implements IBooksRepository {
     author,
     gender,
     pages,
-    id
+    id,    
+    image
   }: ICreateBookDTO): Promise<Book> {
     const book = this.repository.create({
       name,
       author,
       gender,
       pages,
-      id,      
+      id,
+      image  
     });
 
     await this.repository.save(book);

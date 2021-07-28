@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { createHeaderResponse } from "../../../../shared/utils/CreateHeaderResponse";
 import DeleteBookUseCase from "./deleteBookUseCase";
 
 export default class DeleteBookController {
@@ -10,6 +11,12 @@ export default class DeleteBookController {
 
     await deleteBookUseCase.execute({id});
 
-    return response.status(201).send();
+    const headers = createHeaderResponse({
+      book_id: id,      
+      isOptions: false      
+    });
+        
+    return response.status(204).header(headers).send();    
+    
   }
 }

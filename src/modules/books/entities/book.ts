@@ -13,6 +13,9 @@ class Book {
   author: string;
 
   @Column()
+  image: string;
+
+  @Column()
   gender: string;
 
   @Column()

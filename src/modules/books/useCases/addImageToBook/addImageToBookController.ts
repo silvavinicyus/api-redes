@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { createHeaderResponse } from "../../../../shared/utils/CreateHeaderResponse";
-import CreateBookUseCase from "./CreateBookUseCase";
+import AddImageToBookUseCase from "./addImageToBookUseCase";
 
-export default class CreateBookController {
+export default class AddImageToBookController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const {name, author, gender, pages} = request.body;
+    const { id } = request.params;
+    const { url } = request.body;
 
-    const createBookUseCase = container.resolve(CreateBookUseCase);
+    const addImageToBookUseCase = container.resolve(AddImageToBookUseCase);
 
-    const book = await createBookUseCase.execute({name, author, gender, pages});
+    const book = await addImageToBookUseCase.execute({id, url});
 
     const headers = createHeaderResponse({
       book_id: book.id,
@@ -17,6 +18,6 @@ export default class CreateBookController {
       isOptions: false      
     });
         
-    return response.status(201).header(headers).json(book);    
+    return response.status(201).header(headers).json(book);
   }
 }

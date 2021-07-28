@@ -3,5 +3,6 @@ interface ICreateBookDTO {
   name: string;
   author: string;
   gender: string;
-  pages: number;
+  pages: number;  
+  image?: string;
 } export {ICreateBookDTO};

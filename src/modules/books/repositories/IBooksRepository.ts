@@ -6,5 +6,5 @@ interface IBooksRepository {
   findByNameAndAuthor(name: string, author: string): Promise<Book>;
   findById(id: string): Promise<Book>;
   findAllBooks(): Promise<Book[]>;
-  deleteById(id: string): Promise<void>;
+  deleteById(id: string): Promise<void>;  
 } export {IBooksRepository};

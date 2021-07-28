@@ -15,7 +15,7 @@ export default class CreateBookUseCase {
     const bookExists = await this.booksRepository.findByNameAndAuthor(name, author);
 
     if(bookExists) {
-      throw new AppError("This book already exists");
+      throw new AppError("This book already exists", 409);
     }
 
     const book = await this.booksRepository.create({

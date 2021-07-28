@@ -1,25 +1,34 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../shared/errors/AppError";
+import { Book } from "../../entities/book";
 import { IBooksRepository } from "../../repositories/IBooksRepository";
 
 interface IRequest {
   id: string;
+  url: string;
 }
 
 @injectable()
-export default class DeleteBookUseCase {
+export default class AddImageToBookUseCase {
   constructor(
     @inject('BooksRepository')
     private booksRepository: IBooksRepository
-  ) {}
-
-  async execute({id}: IRequest): Promise<void> {
+  ){}
+  
+  async execute({id, url}: IRequest): Promise<Book>{
     const bookExists = await this.booksRepository.findById(id);
 
     if(!bookExists) {
-      throw new AppError("There is no book with the given id", 404);      
+      throw new AppError("Non Authorized", 203);
     }
 
-    await this.booksRepository.deleteById(id);    
+    bookExists.image = url;
+
+    console.log(bookExists);
+
+    const book = this.booksRepository.create(bookExists);
+
+    return bookExists;
   }
+  
 }
