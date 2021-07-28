@@ -1,0 +1,15 @@
+{
+  "type": "postgres",
+  "port": 5432,
+  "host": "localhost",
+  "username": "postgres",
+  "password": "docker",
+  "database": "bookstore",
+  "entities": [
+      "./src/modules/**/entities/*.ts"
+  ],
+  "migrations": ["./src/shared/database/migrations/*ts"],
+  "cli": {
+      "migrationsDir": "./src/shared/database/migrations"
+  }
+}
