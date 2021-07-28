@@ -8,15 +8,20 @@ export default class ShowBookController {
     const showBookUseCase = container.resolve(ShowBookUseCase);
     
     const books = await showBookUseCase.execute();
+    let headers = {};
+
+    if(books.length <= 0) {
+      headers = createHeaderResponse({                
+        isOptions: false      
+      });  
+    } else {
+      headers = createHeaderResponse({
+        book_id: books[0].id,      
+        book_name: books[0].name,
+        isOptions: false      
+      });  
+    }
     
-
-
-    const headers = createHeaderResponse({
-      book_id: books[0].id,      
-      book_name: books[0].name,
-      isOptions: false      
-    });
-
     return response.status(200).header(headers).json(books);    
   }
 }
